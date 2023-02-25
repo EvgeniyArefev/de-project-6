@@ -258,7 +258,7 @@ select * from EVGENIYAREFEVYANDEXRU__DWH.s_dialog_info limit 10;
 --s_auth_history
 merge into EVGENIYAREFEVYANDEXRU__DWH.s_auth_history tgt
 using (
-		select 
+		select distinct
 			luga.hk_l_user_group_activity
 			,gl.user_id_from 
 			,gl.event 
@@ -276,13 +276,12 @@ using (
 	) src
     on (
 	   tgt.hk_l_user_group_activity = src.hk_l_user_group_activity
-	   and tgt.user_id_from = src.user_id_from 
+	   and coalesce(tgt.user_id_from, 0) = coalesce(src.user_id_from, 0)
 	   and tgt.event = src.event
 	   and tgt.event_dt = src.event_dt
     )
 when not matched 
   then insert(hk_l_user_group_activity, user_id_from, event, event_dt, load_dt, load_src)
   values(src.hk_l_user_group_activity, src.user_id_from, src.event, src.event_dt, src.load_dt, src.load_src);
-
-
+ 
 select * from EVGENIYAREFEVYANDEXRU__DWH.s_auth_history limit 10;
