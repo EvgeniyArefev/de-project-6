@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  project:
+    image: sindb/de-sprint-6:latest
+    ports:
+      - 3000:3000
+      - 3002:3002
+      - 15432:5432
+    volumes:
+      - mydb:/var/lib/postgresql
+      - mylessons:/lessons
+      - ./src/dags:/lessons/dags
+      - ./data:/data:rw
+
+volumes:
+  mydb:
+  mylessons:
