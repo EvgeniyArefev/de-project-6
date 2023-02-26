@@ -29,6 +29,8 @@ group by calendar_hierarchy_day(registration_dt::date, 3, 2)
 ;
 
 --dialogs
+drop table if exists EVGENIYAREFEVYANDEXRU__STAGING.dialogs;
+
 create table EVGENIYAREFEVYANDEXRU__STAGING.dialogs (
 	 message_id int primary key
 	,message_ts timestamp

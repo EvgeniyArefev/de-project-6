@@ -2,19 +2,31 @@ from airflow import DAG
 from airflow.decorators import dag
 from airflow.operators.python import PythonOperator
 from airflow.operators.empty import EmptyOperator
+from airflow.models import Variable
 
 import vertica_python
 import pendulum
 import pandas as pd
 
 
-conn_info = {'host': '51.250.75.20',
-            'port': '5433',
-            'user': 'EVGENIYAREFEVYANDEXRU',
-            'password': 'fSX2ERi7fkz9AVb',
-            'database': 'dwh',
-            'autocommit': True
+vertica_connection_config = Variable.get("vertica_connection_config", deserialize_json=True)
+
+conn_info = {"host": vertica_connection_config["host"],
+            "port": vertica_connection_config["port"],
+            "user": vertica_connection_config["user"],
+            "password": vertica_connection_config["password"],
+            "database": vertica_connection_config["database"],
+            "autocommit": True
             }
+
+
+# conn_info = {"host": "51.250.75.20",
+#             "port": "5433",
+#             "user": "EVGENIYAREFEVYANDEXRU",
+#             "password": "fSX2ERi7fkz9AVb",
+#             "database": "dwh",
+#             "autocommit": True
+#             }
 
 vertica_conn = vertica_python.connect(**conn_info)
 

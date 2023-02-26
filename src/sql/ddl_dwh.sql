@@ -229,7 +229,7 @@ create table EVGENIYAREFEVYANDEXRU__DWH.s_auth_history (
 	  ,load_dt datetime
 	  ,load_src varchar(20)
 )
-order by load_dt
+order by event_dt
 segmented by hk_l_user_group_activity all nodes
 partition by load_dt::date
 group by calendar_hierarchy_day(load_dt::date, 3, 2)

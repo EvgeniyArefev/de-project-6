@@ -1,18 +1,12 @@
 with 
 user_group_messages as (
 	select 
-		 luga.hk_group_id 
-		,count(distinct luga.hk_user_id) as cnt_users_in_group_with_messages
-	from EVGENIYAREFEVYANDEXRU__DWH.l_user_group_activity luga
-	inner join (select 
-					lgd.hk_group_id 
-					,lgd.hk_message_id
-					,lum.hk_user_id 
-				from EVGENIYAREFEVYANDEXRU__DWH.l_groups_dialogs lgd 
-				left join EVGENIYAREFEVYANDEXRU__DWH.l_user_message lum
-					on lgd.hk_message_id = lum.hk_message_id) sq_1
-		on luga.hk_user_id = sq_1.hk_user_id
-	group by luga.hk_group_id 
+		 lgd.hk_group_id
+		,count(lum.hk_user_id) as cnt_users_in_group_with_messages
+	from EVGENIYAREFEVYANDEXRU__DWH.l_groups_dialogs lgd 
+	left join EVGENIYAREFEVYANDEXRU__DWH.l_user_message lum
+		on lgd.hk_message_id = lum.hk_message_id
+	group by lgd.hk_group_id 
 ),
 user_group_log as (
     select 
