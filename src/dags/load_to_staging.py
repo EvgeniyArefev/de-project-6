@@ -19,15 +19,6 @@ conn_info = {"host": vertica_connection_config["host"],
             "autocommit": True
             }
 
-
-# conn_info = {"host": "51.250.75.20",
-#             "port": "5433",
-#             "user": "EVGENIYAREFEVYANDEXRU",
-#             "password": "fSX2ERi7fkz9AVb",
-#             "database": "dwh",
-#             "autocommit": True
-#             }
-
 vertica_conn = vertica_python.connect(**conn_info)
 
 def load_from_csv_to_vertice(connection, data):
