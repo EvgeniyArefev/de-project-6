@@ -2,7 +2,7 @@ with
 user_group_messages as (
 	select 
 		 lgd.hk_group_id
-		,count(lum.hk_user_id) as cnt_users_in_group_with_messages
+		,count(distinct lum.hk_user_id) as cnt_users_in_group_with_messages
 	from EVGENIYAREFEVYANDEXRU__DWH.l_groups_dialogs lgd 
 	left join EVGENIYAREFEVYANDEXRU__DWH.l_user_message lum
 		on lgd.hk_message_id = lum.hk_message_id
